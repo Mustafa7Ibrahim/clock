@@ -1,4 +1,5 @@
 import 'package:clock/theme/current_theme.dart';
+import 'package:clock/widgets/circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,13 @@ class Clock extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: buildSettingButton(context),
-        actions: [buildAddButton(context)],
+        actions: [
+          CircleButton(
+            icon: Icons.add,
+            iconSize: 28.0,
+            onTap: () {},
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -51,20 +58,6 @@ class Clock extends StatelessWidget {
         color: Theme.of(context).iconTheme.color,
       ),
       onPressed: () {},
-    );
-  }
-
-  InkWell buildAddButton(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

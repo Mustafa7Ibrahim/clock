@@ -1,5 +1,6 @@
 import 'package:clock/screens/alarm/alarm.dart';
 import 'package:clock/screens/clock/clock.dart';
+import '../stopwatch/stopwatch.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatefulWidget {
@@ -15,7 +16,7 @@ class _WrapperState extends State<Wrapper> {
     List<Widget> _widgetOptions = <Widget>[
       Alarm(),
       Clock(),
-      Scaffold(),
+      Stopwatch(),
       Scaffold(),
     ];
     return Scaffold(
@@ -44,7 +45,7 @@ class _WrapperState extends State<Wrapper> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.timelapse),
-            title: Text('StopWatch'),
+            title: Text('Stopwatch'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),
