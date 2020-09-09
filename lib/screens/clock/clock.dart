@@ -13,13 +13,6 @@ class Clock extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: buildSettingButton(context),
-        actions: [
-          CircleButton(
-            icon: Icons.add,
-            iconSize: 28.0,
-            onTap: () {},
-          )
-        ],
       ),
       body: Column(
         children: [
