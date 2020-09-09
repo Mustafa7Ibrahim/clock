@@ -34,16 +34,13 @@ class _AlarmState extends State<Alarm> {
         elevation: 0.0,
         tooltip: 'Add alarm',
         backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+        child: Icon(Icons.add, color: Colors.white),
         onPressed: () {},
       ),
       body: ListView(
         children: alarms.map((alarm) {
           var alarmTime = DateFormat('hh:mm').format(alarm.dataTime);
-          var am_pm = DateFormat('aa').format(alarm.dataTime);
+          var dayAndNight = DateFormat('aa').format(alarm.dataTime);
           return Container(
             padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.all(12.0),
@@ -96,7 +93,7 @@ class _AlarmState extends State<Alarm> {
                           .copyWith(color: Theme.of(context).primaryColor),
                     ),
                     Text(
-                      am_pm,
+                      dayAndNight,
                       style: Theme.of(context)
                           .textTheme
                           .headline3
