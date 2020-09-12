@@ -2,6 +2,7 @@ import 'package:clock/screens/alarm/alarm.dart';
 import 'package:clock/screens/clock/clock.dart';
 import '../stopwatch/stopwatch.dart';
 import 'package:flutter/material.dart';
+import 'package:clock/screens/timer/timer.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _WrapperState extends State<Wrapper> {
       Alarm(),
       Clock(),
       Stopwatch(),
-      Scaffold(),
+      CountDownTimer(),
     ];
     return Scaffold(
       body: IndexedStack(
