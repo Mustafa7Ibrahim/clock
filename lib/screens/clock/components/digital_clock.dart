@@ -13,9 +13,7 @@ class _DigitalClockState extends State<DigitalClock> {
   @override
   void initState() {
     Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        _timeOfDay = TimeOfDay.now();
-      });
+      _timeOfDay = TimeOfDay.now();
     });
     super.initState();
   }

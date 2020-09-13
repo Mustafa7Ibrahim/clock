@@ -24,7 +24,7 @@ ThemeData themeData(BuildContext context) {
       bodyText2: TextStyle(color: kBodyTextColorLight),
       headline4: TextStyle(color: kTitleTextLightColor, fontSize: 32),
       headline1: TextStyle(color: kTitleTextLightColor, fontSize: 80),
-      headline2: TextStyle(color: kTitleTextLightColor),
+      headline2: TextStyle(color: kBodyTextColorLight),
     ),
   );
 }
@@ -51,7 +51,7 @@ ThemeData darkThemeData(BuildContext context) {
       bodyText2: TextStyle(color: kBodyTextColorDark),
       headline4: TextStyle(color: kTitleTextDarkColor, fontSize: 32),
       headline1: TextStyle(color: kTitleTextDarkColor, fontSize: 80),
-      headline2: TextStyle(color: kTitleTextDarkColor),
+      headline2: TextStyle(color: kBodyTextColorDark),
     ),
   );
 }
