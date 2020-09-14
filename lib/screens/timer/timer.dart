@@ -16,6 +16,13 @@ class _CountDownTimerState extends State<CountDownTimer> {
   bool start = true;
   String timetodisplay = "";
   int timefortimer;
+  Timer timer;
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   void timerstart() {
     timefortimer = ((hour * 3600) + (min * 60) + sec);
@@ -25,9 +32,10 @@ class _CountDownTimerState extends State<CountDownTimer> {
   void onTick(Timer t) {
     setState(() {
       start = false;
+      timer = t;
 
       if (timefortimer < 1)
-        timerstop();
+        timerstop(timer);
       else
         displayTimer();
     });
@@ -43,9 +51,9 @@ class _CountDownTimerState extends State<CountDownTimer> {
     timefortimer = timefortimer - 1;
   }
 
-  void timerstop({Timer t}) {
+  void timerstop(Timer t) {
     setState(() {
-      if (t != null) t.cancel();
+      t.cancel();
       hour = 0;
       min = 0;
       sec = 0;
@@ -90,7 +98,7 @@ class _CountDownTimerState extends State<CountDownTimer> {
       ),
       backgroundColor: Theme.of(context).primaryColor,
       elevation: 0.0,
-      onPressed: start ? timerstart : timerstop,
+      onPressed: () => start ? timerstart() : timerstop(timer),
     );
   }
 
