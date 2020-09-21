@@ -2,10 +2,8 @@ import 'package:clock/constant/theme_colors.dart';
 import 'package:clock/models/alarm_model.dart';
 import 'package:clock/services/alarm_db.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:clock/services/alarm_service.dart';
 import 'package:intl/intl.dart';
-
-import '../../main.dart';
 
 class Alarm extends StatefulWidget {
   @override
@@ -15,7 +13,7 @@ class Alarm extends StatefulWidget {
 class _AlarmState extends State<Alarm> {
   DateTime _alarmTime;
   AlarmDB _alarmDB = AlarmDB();
-  Future<List<AlarmModel>> _alarms;
+  Stream<List<AlarmModel>> _alarms;
   String _alarmTimeString;
   @override
   void initState() {
@@ -24,26 +22,8 @@ class _AlarmState extends State<Alarm> {
   }
 
   void loadAlarms() {
-    _alarms = _alarmDB.getAlarms();
+    _alarms = _alarmDB.getAlarms().asStream();
     if (mounted) setState(() {});
-  }
-
-  void scheduleAlarm(DateTime scheduledNotificationDateTime) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'alarm_notif',
-      'alarm_notif',
-      'Channel for Alarm notification',
-      icon: 'codex_logo',
-      sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
-      largeIcon: DrawableResourceAndroidBitmap('codex_logo'),
-    );
-
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        sound: 'a_long_cold_sting.wav', presentAlert: true, presentBadge: true, presentSound: true);
-    var platformChannelSpecifics =
-        NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.schedule(0, 'Office', 'Good morning! Time for office.',
-        scheduledNotificationDateTime, platformChannelSpecifics);
   }
 
   void showButtomSheet(BuildContext context) {
@@ -118,8 +98,7 @@ class _AlarmState extends State<Alarm> {
                         // days: ['sun', 'dar', 'sl'],
                       );
                       _alarmDB.insertAlarm(alarmInfo);
-                      // scheduleAlarm(
-                      //     scheduleAlarmDateTime);
+                      // scheduleAlarm(scheduleAlarmDateTime);
                     },
                     icon: Icon(Icons.alarm),
                     label: Text('Save'),
@@ -147,8 +126,8 @@ class _AlarmState extends State<Alarm> {
           showButtomSheet(context);
         },
       ),
-      body: FutureBuilder(
-        future: _alarms,
+      body: StreamBuilder(
+        stream: _alarms,
         builder: (context, snapshot) => snapshot.hasData
             ? ListView(
                 children: snapshot.data.map<Widget>((alarm) {

@@ -1,4 +1,5 @@
 import 'package:clock/models/alarm_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String tableAlarm = 'alarm';
@@ -8,7 +9,7 @@ final String columnDateTime = 'dateTime';
 final String columnEnable = 'enable';
 final String columnDays = 'days';
 
-class AlarmDB {
+class AlarmDB extends ChangeNotifier {
   static Database _database;
 
   Future<Database> get database async {
@@ -42,16 +43,19 @@ class AlarmDB {
   void insertAlarm(AlarmModel alarmModel) async {
     var db = await this.database;
     var result = await db.insert(tableAlarm, alarmModel.tojson());
+    notifyListeners();
     print(result);
   }
 
   Future<int> delete(int id) async {
     var db = await this.database;
-    return await db.delete(
+    var deletResult = await db.delete(
       tableAlarm,
       where: '$columnId =?',
       whereArgs: [id],
     );
+    notifyListeners();
+    return deletResult;
   }
 
   Future<List<AlarmModel>> getAlarms() async {
