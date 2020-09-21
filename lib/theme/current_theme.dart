@@ -10,10 +10,10 @@ class CurrentTheme extends ChangeNotifier {
     notifyListeners();
   }
 
-  _saveCurrentTheme(String key, bool value) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(key, value);
-  }
+  // _saveCurrentTheme(String key, bool value) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   sharedPreferences.setBool(key, value);
+  // }
 
   Future getCurrentTheme(String key) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
