@@ -1,6 +1,7 @@
 import 'package:clock/models/alarm_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../main.dart';
@@ -109,16 +110,19 @@ class AlarmService extends ChangeNotifier {
   }
 
   void scheduleAlarm(DateTime scheduledNotificationDateTime, AlarmModel alarmModel) async {
+    final String time = DateFormat.jm().format(alarmModel.dateTime);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
       'alarm_notif',
       'Channel for Alarm notification',
       icon: 'clock',
       playSound: true,
+      sound: RawResourceAndroidNotificationSound('alarm'),
       largeIcon: DrawableResourceAndroidBitmap('clock'),
     );
 
     var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+      sound: 'alarm.mp3',
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
@@ -130,10 +134,9 @@ class AlarmService extends ChangeNotifier {
     await flutterLocalNotificationsPlugin.schedule(
       0,
       alarmModel.lable,
-      alarmModel.dateTime.toString(),
+      time,
       scheduledNotificationDateTime,
       platformChannelSpecifics,
-      androidAllowWhileIdle: true,
     );
   }
 }
